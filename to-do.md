@@ -1,15 +1,15 @@
 # TO-DO list
 > The TO-DO list for the SQL cheatsheet.
 
-- [ ] Explain SQL deeper
-- [ ] Write **Data Backup** chapter
-- [ ] Create **Other** chapter 
+- [x] Explain SQL deeper
+- [x] Write **Data Backup** chapter
+- [x] Create **Other** chapter 
 - [x] Add **Transaction** subchapter
-- [ ] Add DISTINCT command
 
 - [ ] Transfer Readme into WIKI
 
 - [ ] Add exec statement
+- [ ] Add WHERE statement
 - [ ] Add multiple INSERTS statement
 - [ ] Add ON UPDATE CASCADE statement
 - [ ] Add ON DELETE CASCADE statement
@@ -25,9 +25,7 @@
 - [ ] Add substatement HAVING in GROUP BY statement
 - [ ] Add Functions with descripton
 - [ ] Add substatement INTERSECT in UNION statement
-- [ ] Add substatement EXCEPT in UNION statement
+- [ ] Add IDENTITY function
 
-
-- [ ] Delete MERGE statement
 
 #### **Go back to the SQL cheatsheet [here](README.md).**
