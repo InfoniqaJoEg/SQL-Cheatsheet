@@ -281,7 +281,7 @@ A self-join is a join that can be used to join a table with itself. Hence, it is
 CROSS JOIN is to use to generate a lot of data.
 > With the CROSS JOIN you can display two tables with each other and all data are mixed.
 ```sql
-    SELECT * FROM btable CROSS JOIN TableA;
+    SELECT * FROM btable CROSS JOIN atable;
     -- or
     SELECT TabelleAID, Vorname, Nachname FROM Tableb, TableA;
 ```
