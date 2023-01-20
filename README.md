@@ -283,7 +283,7 @@ CROSS JOIN is to use to generate a lot of data.
 ```sql
     SELECT * FROM btable CROSS JOIN atable;
     -- or
-    SELECT TabelleAID, Vorname, Nachname FROM Tableb, TableA;
+    SELECT column1, column2, column3 FROM btable, atable;
 ```
 ### GROUP BY
 The GROUP BY clause is used to group rows from a table based on one or more columns.
@@ -292,6 +292,20 @@ The GROUP BY clause is used to group rows from a table based on one or more colu
     SELECT column1, COUNT(DISTINCT column2)
     FROM table_name
     GROUP BY column1;
+```
+### HAVING
+> The HAVING keyword can only be used in combination with GROUP BY and is used to restrict or filter the results of aggregate functions.
+```sql
+    SELECT table1 FROM column 
+    GROUP BY table1
+    HAVING COUNT(*) > 100;
+```
+> HAVING is only used to filter the aggregation. If you want to filter records before grouping, you have to set a WHERE clause accordingly. In the following query, we add the condition that the persons must be older than 18 to the above statement:
+```sql
+    SELECT count(id), table1 FROM column1 
+    WHERE alter > 18
+    GROUP BY table1 
+    HAVING count(id) > 100;
 ```
 ### SUM()
 > total
@@ -370,7 +384,14 @@ SET operations are used to combine the result of two or more SELECT statements i
     INTERSECT
     SELECT column1 FROM table2;
 ```
-
+### INTERSECT
+The INTERSECT statement is used to show the intersection of two queries. In the final result, you only see certain data records that are managed with values ​​for days in both query 1 and query 2.
+> This command is used to show the intersection of two queries.
+```sql
+    SELECT spalte1, spalte2, spalte3 FROM tabelle1
+    INTERSECT
+    SELECT spalte1, spalte2, spalte3 from tabelle2;
+```
 ([Back to top](#sql-cheatsheet))
 # Transaction
 > In SQL, a transaction is a sequence of one or more database operations that are executed as a single logical unit of work. These operations can include inserting, updating, or deleting data, and can span multiple tables and/or rows. Transactions are used to ensure that the database remains in a consistent state, even in the event of errors or system failures. They also provide a way to undo or rollback changes, if necessary. Transactions are typically managed using the BEGIN, COMMIT, and ROLLBACK statements.
