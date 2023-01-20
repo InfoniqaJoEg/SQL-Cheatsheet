@@ -51,6 +51,18 @@ SQL is the standard language and interface for:
 ([Back to top](#sql-cheatsheet))
 # Data-Definition-Language
 > DDL is a subset of SQL (Structured Query Language) that is used to define the structure of a relational database. DDL statements are used to create, modify, and delete database objects such as tables, views, indexes, and constraints.
+### Informations
+The Informations Chapter is used to give out specified Informations about SQL.
+> This command is used to give out your own name in a specific table.
+```sql       
+    SELECT 'your_name' AS 'Your Name'
+```
+### EXEC
+The EXEC command is used to change the names in SQL
+> This command is used to change the name in a specific table. "table_name" is only used as a placeholder and needs to be changed.
+```sql       
+    EXEC sp_columns table_name
+```
 ### CREATE
 The CREATE command is used to create a new table with specified columns and data types. The table name, column names, and data types must be defined within the command.
 > This command is used to create a new table with specified columns and data types
@@ -116,6 +128,12 @@ The INSERT statement is used to insert new data into a table in the database. It
     INSERT INTO table_name (column1, column2, ...)
     VALUES (value1, value2, ...);
 ```
+> This command is used to insert multiple new data into a table
+```sql
+    INSERT INTO table_name VALUES
+    (column1-value1, column1-value2),
+    (column2-value1, column2-value2);
+```
 ### UPDATE
 The UPDATE statement is used to modify existing data in a table. It allows the user to specify which columns and values to update and the condition to select which rows to update.
 > This command is used to update existing data in a table
@@ -133,12 +151,22 @@ The DELETE statement is used to delete data from a table. It allows the user to 
 ```
 ### CASCADING
 The CASCADE option is used to specify that when a referenced row in a parent table is deleted, all corresponding rows in a child table will also be deleted.
+> This command is used to specify that when a referenced row in a parent table is updated, all corresponding rows in a child table will also be updated
+```sql
+    ALTER TABLE aTable WITH CHECK ADD CONSTRAINT FK_a_table FOREIGN KEY
+    (fk_id) REFERENCES bTable(id) ON UPDATE CASCADE;
+```
 > This command is used to specify that when a referenced row in a parent table is deleted, all corresponding rows in a child table will also be deleted
 ```sql
-    CREATE TABLE table1 (
-        id INT PRIM
-    );
+    ALTER TABLE aTable WITH CHECK ADD CONSTRAINT FK_a_table FOREIGN KEY
+    (fk_id) REFERENCES bTable(id) ON DELETE CASCADE;
 ```
+> You also can combine them
+```sql
+    ALTER TABLE aTable WITH CHECK ADD CONSTRAINT FK_a_table FOREIGN KEY
+    (fk_id) REFERENCES bTable(id) ON UPDATE CASCADE ON DELETE CASCADE;
+```
+
 ### MERGE
 The MERGE statement is used to either update or insert data into a table based on a condition. It allows the user to specify a source table, the conditions for updating and inserting and the columns and values to be used.
 > This command is used to either update or insert data into a table based on a condition
@@ -164,11 +192,33 @@ The SELECT statement is used to query data from one or more tables in a database
 ```sql
     SELECT column1, column2, ... FROM table_name;
 ```
-### CONCAT 
-The CONCAT statement is used to combine multiple data tables in a database
-> This command is used to combine all columns from a table into one data
+### DISTINCT 
+The DISTINCT statement is used to ensure that identical values ​​appear only once in a table.
+> This command is used to show values just once.
 ```sql
-    SELECT column_id, CONCAT(column_name, column_surname) AS newtable_name FROM table_name;
+    SELECT DISTINCT table_name FROM column_name;
+```
+### ORDER BY 
+The ORDER BY statement is used to sort data types, for example, all numeric data types or date values. Text fields can also be sorted.
+> This command is used to sort data values of a specific table.
+```sql
+    SELECT column_name1, column_name2 FROM table_name ORDER BY column_name2;
+```
+> This command is used to sort multiple data values of a specific table.
+```sql
+    SELECT column_name1, column_name2 FROM table_name ORDER BY column_name1, column_name2;
+```
+### TOP 
+The TOP statement is used to only show a specific amount of values in a table.
+> This command is used to only show 10 value in a table and sort them.
+```sql
+    SELECT TOP 10 column_name AS 'newtable_name' FROM table_name ORDER BY column_name DESC
+```
+### CONCAT 
+The CONCAT statement is used to combine multiple data tables in a database.
+> This command is used to combine all columns from a table into one data.
+```sql
+    SELECT column1, CONCAT(column2, column3) AS newtable_name FROM table_name;
 ```
 ### WHERE
 The WHERE clause is used to filter data based on a specific condition.
@@ -189,30 +239,111 @@ The CASE statement is used to evaluate a set of conditions and return a specific
     END AS new_column
     FROM table_name;
 ```
-### JOIN
-The JOIN clause is used to combine rows from two or more tables based on a related column between them.
-> This command is used to select all columns from two tables where the values in a specific column match
+### INNER JOIN
+You can use an INNER JOIN operation in any FROM clause. This is the most common type of join. Inner joins combine records from two tables whenever there are matching values in a field common to both tables. You can use INNER JOIN with the Departments and Employees tables to select all the employees in each department. The ON state is used to compare the FOREIGN KEYS.
+> With the INNER JOIN you can display two tables with each other.
 ```sql
-    SELECT * FROM table1
-    JOIN table2
-    ON table1.column_name = table2.column_name;
+    SELECT atable.column1, btable.column1, atable.column2, btable.column2
+    FROM atable INNER JOIN btable ON atable.column2 = btable.column2;
 ```
-### GROUP
+### LEFT JOIN
+The LEFT JOIN in SQL basically returns all records from the left table and the matched records from the right tables. For example, let's say, we have two tables, Table A and Table B. When LEFT JOIN is applied on these two tables, all records from Table A and only the matched records from Table B will be displayed. The ON state is used to compare the FOREIGN KEYS.
+> With the LEFT JOIN you can display two tables with each other.
+```sql
+    SELECT atable.column1, btable.column1, atable.column2, btable.column2
+    FROM atable LEFT JOIN btable ON atable.column2 = btable.column2;
+```
+
+### RIGHT JOIN
+The RIGHT JOIN in SQL basically returns all records from the right table and the matched records from the right tables. For example, let's say, we have two tables, Table B and Table B. When RIGHT JOIN is applied on these two tables, all records from Table A and only the matched records from Table A will be displayed. The ON state is used to compare the FOREIGN KEYS.
+> With the RIGHT JOIN you can display two tables with each other.
+```sql
+    SELECT atable.column1, btable.column1, atable.column2, btable.column2
+    FROM atable RIGHT JOIN btable ON atable.column2 = btable.column2;
+```
+### FULL JOIN
+The FULL JOIN is the RIGHT JOIN and the LEFT JOIN mixed so all records are show.
+> With the FULL JOIN you can display two tables with each other.
+```sql
+    SELECT atable.column1, btable.column1, atable.column2, btable.column2
+    FROM atable FULL JOIN btable ON atable.column2 = btable.column2;
+```
+
+### SELF JOIN
+A self-join is a join that can be used to join a table with itself. Hence, it is a unary relation. In a self-join, each row of the table is joined with itself and all the other rows of the same table. Thus, a self-join is mainly used to combine and compare the rows of the same table in the database.
+> With the SELF JOIN you can display two tables with each other.
+```sql
+    SELECT atable.column1, atable.column2, atable.column3,  btable.column1 AS 'table1_name' AS 'table2_name'
+    FROM table1 JOIN table2 ON atable.column1 = btable.column1;
+```
+
+### CROSS JOIN
+CROSS JOIN is to use to generate a lot of data.
+> With the CROSS JOIN you can display two tables with each other and all data are mixed.
+```sql
+    SELECT * FROM btable CROSS JOIN TableA;
+    -- or
+    SELECT TabelleAID, Vorname, Nachname FROM Tableb, TableA;
+```
+### GROUP BY
 The GROUP BY clause is used to group rows from a table based on one or more columns.
-> This command is used to select a column and the count of its distinct values, grouped by another column
+> This command is used to select a column and the count of its dist inct values, grouped by another column
 ```sql
     SELECT column1, COUNT(DISTINCT column2)
     FROM table_name
     GROUP BY column1;
 ```
-### SUBQUERIES$
+### SUM()
+> total
+```sql
+    SUM()
+``` 
+### MIN()
+> smallest Value
+```sql
+    MIN()
+```
+### MAX()
+> biggest Wert
+```sql
+    MAX()
+```
+### COUNT()
+> Count of columns
+```sql
+    COUNT()
+```
+### AVG()
+> average Value
+```sql
+    AVG()
+```
+### STDEV()
+> standard deviation
+```sql
+    STDEV()
+```
+### VAR()
+> variance
+```sql
+    VAR()
+```
+### IDENTITY
+> IDENTITY
+```sql
+    CREATE TABLE table_name(
+    column1 int IDENTITY(1,1),
+    --or
+    column1 int IDENTITY,
+    )
+```
+### SUBQUERIES
 The subquery is a query nested within another query. It is used to retrieve data from one table based on the results of another table.
 > This command is used to select all columns from a table where a specific column matches a value returned by a subquery
 ```sql
     SELECT * FROM table1
     WHERE column1 = (SELECT column2 FROM table2)
 ```
-
 ### UNION
 SET operations are used to combine the result of two or more SELECT statements into a single result.
 > This command is used to select all distinct values from two or more tables that are combined using UNION
