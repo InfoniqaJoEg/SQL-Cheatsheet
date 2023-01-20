@@ -192,6 +192,12 @@ The SELECT statement is used to query data from one or more tables in a database
 ```sql
     SELECT column1, column2, ... FROM table_name;
 ```
+### AS 
+The AS statement has the possibility to rename columns or tables for the query and thus to provide them with substitute names. Note that the aliases apply to the entire query, which means that you then have to use them consistently throughout the query.
+> This command is used to rename columns of a query.
+```sql
+    SELECT column1 Total FROM table1;
+```
 ### DISTINCT 
 The DISTINCT statement is used to ensure that identical values ​​appear only once in a table.
 > This command is used to show values just once.
@@ -307,6 +313,15 @@ The GROUP BY clause is used to group rows from a table based on one or more colu
     GROUP BY table1 
     HAVING count(id) > 100;
 ```
+### IDENTITY
+> IDENTITY
+```sql
+    CREATE TABLE table_name(
+    column1 int IDENTITY(1,1),
+    --or
+    column1 int IDENTITY,
+    )
+```
 ### SUM()
 > total
 ```sql
@@ -342,15 +357,6 @@ The GROUP BY clause is used to group rows from a table based on one or more colu
 ```sql
     VAR()
 ```
-### IDENTITY
-> IDENTITY
-```sql
-    CREATE TABLE table_name(
-    column1 int IDENTITY(1,1),
-    --or
-    column1 int IDENTITY,
-    )
-```
 ### SUBQUERIES
 The subquery is a query nested within another query. It is used to retrieve data from one table based on the results of another table.
 > This command is used to select all columns from a table where a specific column matches a value returned by a subquery
@@ -372,25 +378,19 @@ SET operations are used to combine the result of two or more SELECT statements i
     UNION ALL
     SELECT column1 FROM table2;
 ```
-> This command is used to select all values that are unique to the first table and are not in the second table
-```sql
-    SELECT column1 FROM table1
-    EXCEPT
-    SELECT column1 FROM table2;
-```
+### INTERSECT
 > This command is used to select all values that are in both the first and second table
 ```sql
     SELECT column1 FROM table1
     INTERSECT
     SELECT column1 FROM table2;
 ```
-### INTERSECT
-The INTERSECT statement is used to show the intersection of two queries. In the final result, you only see certain data records that are managed with values ​​for days in both query 1 and query 2.
-> This command is used to show the intersection of two queries.
+### EXCEPT
+> This command is used to select all values that are unique to the first table and are not in the second table
 ```sql
-    SELECT spalte1, spalte2, spalte3 FROM tabelle1
-    INTERSECT
-    SELECT spalte1, spalte2, spalte3 from tabelle2;
+    SELECT column1 FROM table1
+    EXCEPT
+    SELECT column1 FROM table2;
 ```
 ([Back to top](#sql-cheatsheet))
 # Transaction

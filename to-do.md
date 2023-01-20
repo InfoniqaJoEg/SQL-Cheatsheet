@@ -8,9 +8,8 @@
 
 - [ ] Transfer Readme into WIKI
 
-- [ ] Add substatement AS in SELECT statement
-- [ ] Add substatement DISTINCT BY in SELECT statement
-- [ ] Add logical operators (AND, OR, NOT, BETWEEN, IN, LIKE)
+
+
 
 
 #### **Go back to the SQL cheatsheet [here](README.md).**
